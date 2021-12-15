@@ -1,4 +1,4 @@
-# TRACER: Extreme Attention Guided Salient Object Tracing Network implementation in PyTorch
+# TRACER: Extreme Attention Guided Salient Object Tracing Network
 
 This paper was accepted at AAAI 2022 SA poster session.  
 
