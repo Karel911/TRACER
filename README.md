@@ -1,13 +1,12 @@
-# TRACER: Extreme Attention Guided Salient Object Tracing Network
+# TRACER: Extreme Attention Guided Salient Object Tracing Network implementation in PyTorch
 
 This paper was accepted at AAAI 2022 SA poster session.  
 
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/tracer-extreme-attention-guided-salient/salient-object-detection-on-duts-te)](https://paperswithcode.com/sota/salient-object-detection-on-duts-te?p=tracer-extreme-attention-guided-salient)	 
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/tracer-extreme-attention-guided-salient/salient-object-detection-on-duts-te)](https://paperswithcode.com/sota/salient-object-detection-on-duts-te?p=tracer-extreme-attention-guided-salient)  
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/tracer-extreme-attention-guided-salient/salient-object-detection-on-dut-omron)](https://paperswithcode.com/sota/salient-object-detection-on-dut-omron?p=tracer-extreme-attention-guided-salient)  
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/tracer-extreme-attention-guided-salient/salient-object-detection-on-hku-is)](https://paperswithcode.com/sota/salient-object-detection-on-hku-is?p=tracer-extreme-attention-guided-salient)  
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/tracer-extreme-attention-guided-salient/salient-object-detection-on-ecssd)](https://paperswithcode.com/sota/salient-object-detection-on-ecssd?p=tracer-extreme-attention-guided-salient)  
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/tracer-extreme-attention-guided-salient/salient-object-detection-on-pascal-s)](https://paperswithcode.com/sota/salient-object-detection-on-pascal-s?p=tracer-extreme-attention-guided-salient)  
-
 
 ## Datasets
 All datasets are available in public.
@@ -55,10 +54,10 @@ TRACER
 * Run **main.py** scripts.
 <pre><code>
 # For training TRACER-TE0 (e.g.)
-python main.py train --arch b0 --img_size 320
+python main.py train --arch 0 --img_size 320
 
 # For testing TRACER with pre-trained model (e.g.)  
-python main.py test --exp_num 0 --arch b0 --img_size 320
+python main.py test --exp_num 0 --arch 0 --img_size 320
 </code></pre>
 
 ## Configurations
