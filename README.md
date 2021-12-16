@@ -69,7 +69,16 @@ python main.py test --exp_num 0 --arch 0 --img_size 320
 --RFB_aggregated_channel: # of channels in receptive field blocks.  
 --multi_gpu: Multi-GPU learning options.  
 
-
-
+## Citation
+<pre><code>
+@misc{lee2021tracer,
+      title={TRACER: Extreme Attention Guided Salient Object Tracing Network}, 
+      author={Min Seok Lee and WooSeok Shin and Sung Won Han},
+      year={2021},
+      eprint={2112.07380},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+</code></pre>
 
 
