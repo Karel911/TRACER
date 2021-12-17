@@ -15,7 +15,7 @@ All datasets are available in public.
 * Download the HKU-IS from [Here](https://sites.google.com/site/ligb86/hkuis)
 * Download the ECSSD from [Here](https://www.cse.cuhk.edu.hk/leojia/projects/hsaliency/dataset.html)
 * Download the PASCAL-S from [Here](http://cbs.ic.gatech.edu/salobj/)
-* Download the edge GT from [Here]().
+* Download the edge GT from [Here](https://drive.google.com/file/d/1Xl-OwmbkmB1dnvIrcLq3OPQjQnieynpk/view?usp=sharing).
 
 ## Data structure
 <pre><code>
@@ -43,12 +43,11 @@ TRACER
 </code></pre>
 
 ## Requirements
-* Python 3.7.x
+* Python >= 3.7.x
 * Pytorch >= 1.8.0
 * albumentations >= 0.5.1
-* matplotlib >= 3.3.3
 * tqdm >=4.54.0
-* scikit-learn > 0.23.2
+* scikit-learn >= 0.23.2
 
 ## Run
 * Run **main.py** scripts.
