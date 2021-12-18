@@ -108,13 +108,11 @@ python main.py test --exp_num 0 --arch 0 --img_size 320
 
 ## Citation
 <pre><code>
-@misc{lee2021tracer,
-      title={TRACER: Extreme Attention Guided Salient Object Tracing Network}, 
-      author={Min Seok Lee and WooSeok Shin and Sung Won Han},
-      year={2021},
-      eprint={2112.07380},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
+@article{lee2021tracer,
+  title={TRACER: Extreme Attention Guided Salient Object Tracing Network},
+  author={Lee, Min Seok and Shin, WooSeok and Han, Sung Won},
+  journal={arXiv preprint arXiv:2112.07380},
+  year={2021}
 }
 </code></pre>
 
