@@ -313,7 +313,7 @@ class EfficientNet(nn.Module):
             A pretrained TRACER-EfficientNet model.
         """
         model = cls.from_name(model_name, num_classes=num_classes, **override_params)
-        load_pretrained_weights(model, model_name, weights_path=weights_path)
+        load_pretrained_weights(model, model_name, weights_path=weights_path, advprop=advprop)
         model._change_in_channels(in_channels)
         return model
 
