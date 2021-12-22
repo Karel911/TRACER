@@ -115,7 +115,7 @@ python main.py test --exp_num 0 --arch 0 --img_size 320
 <pre><code>
 @article{lee2021tracer,
   title={TRACER: Extreme Attention Guided Salient Object Tracing Network},
-  author={Lee, Min Seok and Shin, WooSeok and Han, Sung Won},
+  author={Lee, Min Seok and Shin, Wooseok and Han, Sung Won},
   journal={arXiv preprint arXiv:2112.07380},
   year={2021}
 }
