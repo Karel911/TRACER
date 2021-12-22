@@ -1,6 +1,6 @@
 # TRACER: Extreme Attention Guided Salient Object Tracing Network
 
-This paper was accepted at AAAI 2022 SA poster session. [[pdf]](https://arxiv.org/abs/2112.07380)  
+This paper was accepted at AAAI 2022 SA poster session. [[pdf]](https://arxiv.org/abs/2112.07380)    
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/tracer-extreme-attention-guided-salient/salient-object-detection-on-duts-te)](https://paperswithcode.com/sota/salient-object-detection-on-duts-te?p=tracer-extreme-attention-guided-salient)  
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/tracer-extreme-attention-guided-salient/salient-object-detection-on-dut-omron)](https://paperswithcode.com/sota/salient-object-detection-on-dut-omron?p=tracer-extreme-attention-guided-salient)  
@@ -58,6 +58,11 @@ python main.py train --arch 0 --img_size 320
 # For testing TRACER with pre-trained model (e.g.)  
 python main.py test --exp_num 0 --arch 0 --img_size 320
 </code></pre>
+* Pre-trained models of TRACER are available at [here](https://github.com/Karel911/TRACER/releases/tag/v1.0)
+* Change the model name as 'best_model.pth' and put the weights to the path 'results/DUTS/TEx_0/best_model.pth'  
+  (here, the x means the model scale e.g., 0 to 7).
+* Input image sizes for each model are listed belows.
+
 ## Configurations
 --arch: EfficientNet backbone scale: TE0 to TE7.  
 --frequency_radius: High-pass filter radius in the MEAM.  
@@ -115,5 +120,3 @@ python main.py test --exp_num 0 --arch 0 --img_size 320
   year={2021}
 }
 </code></pre>
-
-
