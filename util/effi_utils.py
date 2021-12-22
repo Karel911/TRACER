@@ -576,19 +576,34 @@ def get_model_params(model_name, override_params):
     return blocks_args, global_params
 
 
-url_te = {
-    'TRACER-Efficient-0': 'https://github.com/Karel911/TRACER/releases/download/v1.0/TRACER-Efficient-0.pth',
-    'TRACER-Efficient-1': 'https://github.com/Karel911/TRACER/releases/download/v1.0/TRACER-Efficient-1.pth',
-    'TRACER-Efficient-2': 'https://github.com/Karel911/TRACER/releases/download/v1.0/TRACER-Efficient-2.pth',
-    'TRACER-Efficient-3': 'https://github.com/Karel911/TRACER/releases/download/v1.0/TRACER-Efficient-3.pth',
-    'TRACER-Efficient-4': 'https://github.com/Karel911/TRACER/releases/download/v1.0/TRACER-Efficient-4.pth',
-    'TRACER-Efficient-5': 'https://github.com/Karel911/TRACER/releases/download/v1.0/TRACER-Efficient-5.pth',
-    'TRACER-Efficient-6': 'https://github.com/Karel911/TRACER/releases/download/v1.0/TRACER-Efficient-6.pth',
-    'TRACER-Efficient-7': 'https://github.com/Karel911/TRACER/releases/download/v1.0/TRACER-Efficient-7.pth'
+# train with Standard methods
+# check more details in paper(EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks)
+url_map = {
+    'efficientnet-b0': 'https://github.com/lukemelas/EfficientNet-PyTorch/releases/download/1.0/efficientnet-b0-355c32eb.pth',
+    'efficientnet-b1': 'https://github.com/lukemelas/EfficientNet-PyTorch/releases/download/1.0/efficientnet-b1-f1951068.pth',
+    'efficientnet-b2': 'https://github.com/lukemelas/EfficientNet-PyTorch/releases/download/1.0/efficientnet-b2-8bb594d6.pth',
+    'efficientnet-b3': 'https://github.com/lukemelas/EfficientNet-PyTorch/releases/download/1.0/efficientnet-b3-5fb5a3c3.pth',
+    'efficientnet-b4': 'https://github.com/lukemelas/EfficientNet-PyTorch/releases/download/1.0/efficientnet-b4-6ed6700e.pth',
+    'efficientnet-b5': 'https://github.com/lukemelas/EfficientNet-PyTorch/releases/download/1.0/efficientnet-b5-b6417697.pth',
+    'efficientnet-b6': 'https://github.com/lukemelas/EfficientNet-PyTorch/releases/download/1.0/efficientnet-b6-c76e70fd.pth',
+    'efficientnet-b7': 'https://github.com/lukemelas/EfficientNet-PyTorch/releases/download/1.0/efficientnet-b7-dcc49843.pth',
 }
 
+# train with Adversarial Examples(AdvProp)
+# check more details in paper(Adversarial Examples Improve Image Recognition)
+url_map_advprop = {
+    'efficientnet-b0': 'https://github.com/lukemelas/EfficientNet-PyTorch/releases/download/1.0/adv-efficientnet-b0-b64d5a18.pth',
+    'efficientnet-b1': 'https://github.com/lukemelas/EfficientNet-PyTorch/releases/download/1.0/adv-efficientnet-b1-0f3ce85a.pth',
+    'efficientnet-b2': 'https://github.com/lukemelas/EfficientNet-PyTorch/releases/download/1.0/adv-efficientnet-b2-6e9d97e5.pth',
+    'efficientnet-b3': 'https://github.com/lukemelas/EfficientNet-PyTorch/releases/download/1.0/adv-efficientnet-b3-cdd7c0f4.pth',
+    'efficientnet-b4': 'https://github.com/lukemelas/EfficientNet-PyTorch/releases/download/1.0/adv-efficientnet-b4-44fb3a87.pth',
+    'efficientnet-b5': 'https://github.com/lukemelas/EfficientNet-PyTorch/releases/download/1.0/adv-efficientnet-b5-86493f6b.pth',
+    'efficientnet-b6': 'https://github.com/lukemelas/EfficientNet-PyTorch/releases/download/1.0/adv-efficientnet-b6-ac80338e.pth',
+    'efficientnet-b7': 'https://github.com/lukemelas/EfficientNet-PyTorch/releases/download/1.0/adv-efficientnet-b7-4652b6dd.pth',
+    'efficientnet-b8': 'https://github.com/lukemelas/EfficientNet-PyTorch/releases/download/1.0/adv-efficientnet-b8-22a8fe65.pth',
+}
 
-def load_pretrained_weights(model, model_name, weights_path=None):
+def load_pretrained_weights(model, model_name, weights_path=None, load_fc=True, advprop=False):
     """Loads pretrained weights from weights path or download using url.
 
     Args:
@@ -597,11 +612,26 @@ def load_pretrained_weights(model, model_name, weights_path=None):
         weights_path (None or str):
             str: path to pretrained weights file on the local disk.
             None: use pretrained weights downloaded from the Internet.
+        load_fc (bool): Whether to load pretrained weights for fc layer at the end of the model.
+        advprop (bool): Whether to load pretrained weights
+                        trained with advprop (valid when weights_path is None).
     """
     if isinstance(weights_path, str):
-        torch.load(weights_path, strict=False)
+        state_dict = torch.load(weights_path, strict=False)
     else:
-        state_dict = model_zoo.load_url(url_te[model_name])
-        model.load_state_dict(state_dict, strict=False)
+        # AutoAugment or Advprop (different preprocessing)
+        url_map_ = url_map_advprop if advprop else url_map
+        state_dict = model_zoo.load_url(url_map_[model_name])
+
+    if load_fc:
+        ret = model.load_state_dict(state_dict, strict=False)
+        # assert not ret.missing_keys, 'Missing keys when loading pretrained weights: {}'.format(ret.missing_keys)
+    else:
+        state_dict.pop('_fc.weight')
+        state_dict.pop('_fc.bias')
+        ret = model.load_state_dict(state_dict, strict=False)
+        # assert set(ret.missing_keys) == set(
+        #     ['_fc.weight', '_fc.bias']), 'Missing keys when loading pretrained weights: {}'.format(ret.missing_keys)
+    # assert not ret.unexpected_keys, 'Missing keys when loading pretrained weights: {}'.format(ret.unexpected_keys)
 
     print('Loaded pretrained weights for {}'.format(model_name))
