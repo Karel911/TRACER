@@ -30,6 +30,8 @@ def getConfig():
     parser.add_argument('--patience', type=int, default=5, help="Scheduler ReduceLROnPlateau's parameter & Early Stopping(+5)")
     parser.add_argument('--model_path', type=str, default='results/')
     parser.add_argument('--seed', type=int, default=42)
+    parser.add_argument('--save_map', type=bool, default=None, help='Save prediction map')
+
 
     # Hardware settings
     parser.add_argument('--multi_gpu', type=bool, default=True)

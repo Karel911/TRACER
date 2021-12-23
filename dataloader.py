@@ -3,6 +3,7 @@ import glob
 import torch
 import numpy as np
 import albumentations as albu
+from pathlib import Path
 from albumentations.pytorch.transforms import ToTensorV2
 from torch.utils.data import Dataset, DataLoader
 from sklearn.model_selection import train_test_split
@@ -59,8 +60,7 @@ class Test_DatasetGenerate(Dataset):
         self.transform = transform
 
     def __getitem__(self, idx):
-        # image_name = self.images[idx].split('\\')[2].split('.')[0]  # Windows
-        image_name = self.images[idx].split('images/')[1].split('.')[0]  # Ubuntu
+        image_name = Path(self.images[idx]).stem
         image = cv2.imread(self.images[idx])
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         original_size = image.shape[:2]

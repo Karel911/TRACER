@@ -2,7 +2,9 @@
 author: Min Seok Lee and Wooseok Shin
 """
 import os
+import cv2
 import time
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -235,6 +237,9 @@ class Tester():
                                       batch_size=args.batch_size, shuffle=False,
                                       num_workers=args.num_workers, transform=self.test_transform)
 
+        if args.save_map is not None:
+            os.makedirs(os.path.join('pred_map', 'exp'+str(self.args.exp_num), self.args.dataset), exist_ok=True)
+
     def test(self):
         self.model.eval()
         test_loss = AvgMeter()
@@ -262,6 +267,11 @@ class Tester():
 
                     # Metric
                     mae, max_f, avg_f, s_score = Eval_tool.cal_total_metrics(output, mask)
+                    
+                    # Save prediction map
+                    if self.args.save_map is not None:
+                        output = (output.squeeze().detach().cpu().numpy()*255.0).astype(np.uint8)   # convert uint8 type
+                        cv2.imwrite(os.path.join('pred_map', 'exp'+str(self.args.exp_num), self.args.dataset, image_name[i]+'.png'), output)
 
                     # log
                     test_loss.update(loss.item(), n=1)
