@@ -71,6 +71,7 @@ python main.py test --exp_num 0 --arch 0 --img_size 320
 --RFB_aggregated_channel: # of channels in receptive field blocks.  
 --multi_gpu: Multi-GPU learning options.  
 --img_size: Input image resolution.  
+--save_map: Options saving predicted mask.  
 
 <table>
 <thead>
