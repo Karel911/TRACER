@@ -6,7 +6,10 @@ This paper was accepted at AAAI 2022 SA poster session. [[pdf]](https://arxiv.or
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/tracer-extreme-attention-guided-salient/salient-object-detection-on-dut-omron)](https://paperswithcode.com/sota/salient-object-detection-on-dut-omron?p=tracer-extreme-attention-guided-salient)  
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/tracer-extreme-attention-guided-salient/salient-object-detection-on-hku-is)](https://paperswithcode.com/sota/salient-object-detection-on-hku-is?p=tracer-extreme-attention-guided-salient)  
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/tracer-extreme-attention-guided-salient/salient-object-detection-on-ecssd)](https://paperswithcode.com/sota/salient-object-detection-on-ecssd?p=tracer-extreme-attention-guided-salient)  
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/tracer-extreme-attention-guided-salient/salient-object-detection-on-pascal-s)](https://paperswithcode.com/sota/salient-object-detection-on-pascal-s?p=tracer-extreme-attention-guided-salient)  
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/tracer-extreme-attention-guided-salient/salient-object-detection-on-pascal-s)](https://paperswithcode.com/sota/salient-object-detection-on-pascal-s?p=tracer-extreme-attention-guided-salient) 
+
+![alt text](https://github.com/Karel911/TRACER/blob/main/img/Poster.png)
+
 
 ## Datasets
 All datasets are available in public.
