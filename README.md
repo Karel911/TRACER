@@ -8,8 +8,25 @@ This paper was accepted at AAAI 2022 SA poster session. [[pdf]](https://arxiv.or
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/tracer-extreme-attention-guided-salient/salient-object-detection-on-ecssd)](https://paperswithcode.com/sota/salient-object-detection-on-ecssd?p=tracer-extreme-attention-guided-salient)  
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/tracer-extreme-attention-guided-salient/salient-object-detection-on-pascal-s)](https://paperswithcode.com/sota/salient-object-detection-on-pascal-s?p=tracer-extreme-attention-guided-salient) 
 
-![alt text](https://github.com/Karel911/TRACER/blob/main/img/Poster.png)
+![alt text](img/Poster.png)
 
+## Updates 
+We update a pipeline for custom dataset inference w/o measuring.
+* Run **main.py** scripts.
+<pre><code>
+TRACER
+├── data
+│   ├── custom_dataset
+│   │   ├── sample_image1.png
+│   │   ├── sample_image2.png
+      .
+      .
+      .
+
+# For testing TRACER with pre-trained model (e.g.)  
+python main.py inference --dataset custom_dataset/ --arch 7 --img_size 640 --save_map True
+</code></pre>
+We will release initializing TRACER with a version of pre-trained TE-x.
 
 ## Datasets
 All datasets are available in public.

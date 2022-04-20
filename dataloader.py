@@ -54,9 +54,9 @@ class DatasetGenerate(Dataset):
 
 
 class Test_DatasetGenerate(Dataset):
-    def __init__(self, img_folder, gt_folder, transform=None):
+    def __init__(self, img_folder, gt_folder=None, transform=None):
         self.images = sorted(glob.glob(img_folder + '/*'))
-        self.gts = sorted(glob.glob(gt_folder + '/*'))
+        self.gts = sorted(glob.glob(gt_folder + '/*')) if gt_folder is not None else None
         self.transform = transform
 
     def __getitem__(self, idx):
@@ -69,7 +69,10 @@ class Test_DatasetGenerate(Dataset):
             augmented = self.transform(image=image)
             image = augmented['image']
 
-        return image, self.gts[idx], original_size, image_name
+        if self.gts is not None:
+            return image, self.gts[idx], original_size, image_name
+        else:
+            return image, original_size, image_name
 
     def __len__(self):
         return len(self.images)

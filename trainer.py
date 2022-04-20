@@ -221,7 +221,7 @@ class Tester():
         self.save_path = save_path
 
         # Network
-        self.model = self.model = TRACER(args).to(self.device)
+        self.model = TRACER(args).to(self.device)
         if args.multi_gpu:
             self.model = nn.DataParallel(self.model).to(self.device)
 
@@ -233,6 +233,7 @@ class Tester():
 
         te_img_folder = os.path.join(args.data_path, args.dataset, 'Test/images/')
         te_gt_folder = os.path.join(args.data_path, args.dataset, 'Test/masks/')
+
         self.test_loader = get_loader(te_img_folder, te_gt_folder, edge_folder=None, phase='test',
                                       batch_size=args.batch_size, shuffle=False,
                                       num_workers=args.num_workers, transform=self.test_transform)
