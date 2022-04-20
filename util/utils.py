@@ -1,4 +1,5 @@
 import torch
+from torch.utils import model_zoo
 
 def to_array(feature_map):
     if feature_map.shape[0] == 1:
@@ -28,3 +29,21 @@ class AvgMeter(object):
         self.count += n
         self.avg = self.sum / self.count
         self.losses.append(val)
+
+
+url_TRACER = {
+    'TE-0': 'https://github.com/Karel911/TRACER/releases/download/v1.0/TRACER-Efficient-0.pth',
+    'TE-1': 'https://github.com/Karel911/TRACER/releases/download/v1.0/TRACER-Efficient-1.pth',
+    'TE-2': 'https://github.com/Karel911/TRACER/releases/download/v1.0/TRACER-Efficient-2.pth',
+    'TE-3': 'https://github.com/Karel911/TRACER/releases/download/v1.0/TRACER-Efficient-3.pth',
+    'TE-4': 'https://github.com/Karel911/TRACER/releases/download/v1.0/TRACER-Efficient-4.pth',
+    'TE-5': 'https://github.com/Karel911/TRACER/releases/download/v1.0/TRACER-Efficient-5.pth',
+    'TE-6': 'https://github.com/Karel911/TRACER/releases/download/v1.0/TRACER-Efficient-6.pth',
+    'TE-7': 'https://github.com/Karel911/TRACER/releases/download/v1.0/TRACER-Efficient-7.pth',
+}
+
+
+def load_pretrained(model_name):
+    state_dict = model_zoo.load_url(url_TRACER[model_name])
+
+    return state_dict
