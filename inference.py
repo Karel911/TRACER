@@ -26,8 +26,8 @@ class Inference():
         if args.multi_gpu:
             self.model = nn.DataParallel(self.model).to(self.device)
 
-        path = load_pretrained(f'TE-{args.arch}')
-        self.model.load_state_dict(path)
+        path = load_pretrained(f'TE-{args.arch}', self.device)
+        self.model.load_state_dict(path, strict = False)
         print('###### pre-trained Model restored #####')
 
         te_img_folder = os.path.join(args.data_path, args.dataset)
