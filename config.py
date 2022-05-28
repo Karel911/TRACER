@@ -1,7 +1,7 @@
 import argparse
 
 class DummyArgs():
-    def __init__(self, arch = 0):
+    def __init__(self, arch = 7):
         d = {0:320, 1:320, 2:352, 3:384, 4:448, 5:512, 6:576, 7:640}
         self.arch = str(arch)
         self.channels = [24, 40, 112, 320]
@@ -9,11 +9,14 @@ class DummyArgs():
         self.frequency_radius = 16
         self.denoise = 0.93
         self.gamma = 0.1
-        self.multi_gpu = True
-        self.img_size = d[arch] # image_size is based on architecture
+        self.multi_gpu = False
+        self.img_size = d[int(arch)] # image_size is based on architecture
+
 
 def getConfig():
-    return DummyArgs()
+    arch = input("Provide the value of architecture you want to use (0-7): ")
+    return DummyArgs(arch)
+
 
 # def getConfig():
 #     parser = argparse.ArgumentParser()
