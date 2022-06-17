@@ -239,7 +239,7 @@ class Tester():
                                       num_workers=args.num_workers, transform=self.test_transform)
 
         if args.save_map is not None:
-            os.makedirs(os.path.join('pred_map', 'exp'+str(self.args.exp_num), self.args.dataset), exist_ok=True)
+            os.makedirs(os.path.join('mask', 'exp'+str(self.args.exp_num), self.args.dataset), exist_ok=True)
 
     def test(self):
         self.model.eval()
@@ -272,7 +272,7 @@ class Tester():
                     # Save prediction map
                     if self.args.save_map is not None:
                         output = (output.squeeze().detach().cpu().numpy()*255.0).astype(np.uint8)   # convert uint8 type
-                        cv2.imwrite(os.path.join('pred_map', 'exp'+str(self.args.exp_num), self.args.dataset, image_name[i]+'.png'), output)
+                        cv2.imwrite(os.path.join('mask', 'exp'+str(self.args.exp_num), self.args.dataset, image_name[i]+'.png'), output)
 
                     # log
                     test_loss.update(loss.item(), n=1)
