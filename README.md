@@ -10,8 +10,14 @@ This paper was accepted at AAAI 2022 SA poster session. [[pdf]](https://arxiv.or
 
 ![alt text](img/Poster.png)
 
-## Updates 
-We update a pipeline for custom dataset inference w/o measuring.
+## Updates
+[06/17/2022] Now, fast inference mode offers a salient object result with the mask.  
+We have improved a result quality of salient object as follows.  
+You can get the more clear salient object by tuning the [threshold](https://github.com/Karel911/TRACER/blob/main/inference.py/#L71).
+![img](https://user-images.githubusercontent.com/46666862/174314293-da0f9c73-6735-4012-9655-e340dfc251c1.png)
+We will release initializing TRACER with a version of pre-trained TE-x.
+
+[04/20/2022] We update a pipeline for custom dataset inference w/o measuring.
 * Run **main.py** scripts.
 <pre><code>
 TRACER
@@ -26,7 +32,7 @@ TRACER
 # For testing TRACER with pre-trained model (e.g.)  
 python main.py inference --dataset custom_dataset/ --arch 7 --img_size 640 --save_map True
 </code></pre>
-We will release initializing TRACER with a version of pre-trained TE-x.
+
 
 ## Datasets
 All datasets are available in public.
