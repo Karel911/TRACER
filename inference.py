@@ -8,6 +8,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torchvision.transforms import transforms
 from tqdm import tqdm
 from dataloader import get_test_augmentation, get_loader
 from model.TRACER import TRACER
@@ -38,7 +39,8 @@ class Inference():
                                       num_workers=args.num_workers, transform=self.test_transform)
 
         if args.save_map is not None:
-            os.makedirs(os.path.join('pred_map', self.args.dataset), exist_ok=True)
+            os.makedirs(os.path.join('mask', self.args.dataset), exist_ok=True)
+            os.makedirs(os.path.join('object', self.args.dataset), exist_ok=True)
 
     def test(self):
         self.model.eval()
@@ -59,6 +61,29 @@ class Inference():
                     if self.args.save_map is not None:
                         output = (output.squeeze().detach().cpu().numpy() * 255.0).astype \
                             (np.uint8)  # convert uint8 type
-                        cv2.imwrite(os.path.join('pred_map', self.args.dataset, image_name[i] + '.png'), output)
+                        
+                        salient_object = self.post_processing(images[i], output, H, W)
+                        cv2.imwrite(os.path.join('mask', self.args.dataset, image_name[i] + '.png'), output)
+                        cv2.imwrite(os.path.join('object', self.args.dataset, image_name[i] + '.png'), salient_object)
 
         print(f'time: {time.time() - t:.3f}s')
+
+    def post_processing(self, original_image, output_image, height, width, threshold=200):
+        invTrans = transforms.Compose([ transforms.Normalize(mean = [ 0., 0., 0. ],
+                                                            std = [ 1/0.229, 1/0.224, 1/0.225 ]),
+                                        transforms.Normalize(mean = [ -0.485, -0.456, -0.406 ],
+                                                            std = [ 1., 1., 1. ]),
+                                    ])
+        original_image = invTrans(original_image)
+
+        original_image = F.interpolate(original_image.unsqueeze(0), size=(height, width), mode='bilinear')
+        original_image = (original_image.squeeze().permute(1,2,0).detach().cpu().numpy() * 255.0).astype(np.uint8)
+
+        rgba_image = cv2.cvtColor(original_image, cv2.COLOR_BGR2BGRA)
+        output_rbga_image = cv2.cvtColor(output_image, cv2.COLOR_BGR2BGRA)
+
+        output_rbga_image[:, :, 3] = output_image                     # Extract edges
+        edge_y, edge_x, _ = np.where(output_rbga_image <= threshold)  # Edge coordinates
+        
+        rgba_image[edge_y, edge_x, 3] = 0
+        return cv2.cvtColor(rgba_image, cv2.COLOR_RGBA2BGRA)
