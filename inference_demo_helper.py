@@ -11,6 +11,8 @@ from model.TRACER import TRACER
 from util.utils import load_pretrained
 import torch.nn as nn
 import urllib
+from torchvision.transforms import transforms
+
 
 class Inference():
     def __init__(self, args):
@@ -18,6 +20,12 @@ class Inference():
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.transform = get_test_augmentation(img_size=args.img_size)
         self.args = args
+
+        self.invTrans = transforms.Compose([ transforms.Normalize(mean = [ 0., 0., 0. ],
+                                                            std = [ 1/0.229, 1/0.224, 1/0.225 ]),
+                                        transforms.Normalize(mean = [ -0.485, -0.456, -0.406 ],
+                                                            std = [ 1., 1., 1. ]),
+                                    ])
 
         # Network
         self.model = TRACER(args).to(self.device)
@@ -53,4 +61,24 @@ class Inference():
                 output, edge_mask, ds_map = self.model(image)
                 output = F.interpolate(output, size=(h, w), mode='bilinear')
                 output = (output.squeeze().detach().cpu().numpy() * 255.0).astype(np.uint8)  # convert uint8 type
-                return output
+
+                salient_object = self.post_processing(image, output, h, w)
+                return output, salient_object
+
+    
+    def post_processing(self, original_image, output_image, height, width, threshold=200):
+        
+        original_image = self.invTrans(original_image)
+
+        original_image = F.interpolate(original_image, size=(height, width), mode='bilinear')
+        original_image = (original_image.squeeze().permute(1,2,0).detach().cpu().numpy() * 255.0).astype(np.uint8)
+
+        rgba_image = cv2.cvtColor(original_image, cv2.COLOR_BGR2BGRA)
+        output_rbga_image = cv2.cvtColor(output_image, cv2.COLOR_BGR2BGRA)
+
+        output_rbga_image[:, :, 3] = output_image                     # Extract edges
+        edge_y, edge_x, _ = np.where(output_rbga_image <= threshold)  # Edge coordinates
+        
+        rgba_image[edge_y, edge_x, 3] = 0
+        return rgba_image
+
