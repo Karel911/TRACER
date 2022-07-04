@@ -25,10 +25,10 @@ class Inference():
 
         # Network
         self.model = TRACER(args).to(self.device)
-        if args.multi_gpu:
+        if args.multi_gpu or self.device.type == 'cpu': # original code does not infer with CPU conditions because it was saved with nn.DataParallel
             self.model = nn.DataParallel(self.model).to(self.device)
 
-        path = load_pretrained(f'TE-{args.arch}')
+        path = load_pretrained(f'TE-{args.arch}', self.device)
         self.model.load_state_dict(path)
         print('###### pre-trained Model restored #####')
 

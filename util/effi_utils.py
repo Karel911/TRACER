@@ -616,12 +616,13 @@ def load_pretrained_weights(model, model_name, weights_path=None, load_fc=True, 
         advprop (bool): Whether to load pretrained weights
                         trained with advprop (valid when weights_path is None).
     """
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     if isinstance(weights_path, str):
-        state_dict = torch.load(weights_path, strict=False)
+        state_dict = torch.load(weights_path, strict=False, map_location = device)
     else:
         # AutoAugment or Advprop (different preprocessing)
         url_map_ = url_map_advprop if advprop else url_map
-        state_dict = model_zoo.load_url(url_map_[model_name])
+        state_dict = model_zoo.load_url(url_map_[model_name], map_location=device)
 
     if load_fc:
         ret = model.load_state_dict(state_dict, strict=False)
