@@ -41,7 +41,7 @@ All datasets are available in public.
 * Download the HKU-IS from [Here](https://sites.google.com/site/ligb86/hkuis)
 * Download the ECSSD from [Here](https://www.cse.cuhk.edu.hk/leojia/projects/hsaliency/dataset.html)
 * Download the PASCAL-S from [Here](http://cbs.ic.gatech.edu/salobj/)
-* Download the edge GT from [Here](https://drive.google.com/file/d/1Xl-OwmbkmB1dnvIrcLq3OPQjQnieynpk/view?usp=sharing).
+* Download the edge GT from [Here](https://drive.google.com/file/d/1FX2RVeMxPgmSALQUSKhdiNrzf_HxA1o9/view?usp=sharing).
 
 ## Data structure
 <pre><code>
