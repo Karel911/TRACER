@@ -11,6 +11,11 @@ This paper was accepted at AAAI 2022 SA poster session. [[pdf]](https://arxiv.or
 ![alt text](img/Poster.png)
 
 ## Updates
+[09/06/2022] Demo has been released on [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1ZGbxozNHsvnOiywYZARGXr_CvvE6jIFh?usp=sharing/) [Try it now!](https://colab.research.google.com/drive/1ZGbxozNHsvnOiywYZARGXr_CvvE6jIFh?usp=sharing/)  
+
+
+
+
 [06/17/2022] Now, fast inference mode offers a salient object result with the mask.  
 We have improved a result quality of salient object as follows.  
 You can get the more clear salient object by tuning the [threshold](https://github.com/Karel911/TRACER/blob/main/inference.py/#L71).
