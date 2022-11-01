@@ -71,12 +71,12 @@ class Frequency_Edge_Module(nn.Module):
         x_H = torch.abs(x_fft)
 
         x_H, _ = self.UAM.Channel_Tracer(x_H)
-        edge_maks = self.DWSConv(x_H)
-        skip = edge_maks.clone()
+        edge_mask = self.DWSConv(x_H)
+        skip = edge_mask.clone()
 
-        edge_maks = torch.cat([self.DWConv1(edge_maks), self.DWConv2(edge_maks),
-                               self.DWConv3(edge_maks), self.DWConv4(edge_maks)], dim=1) + skip
-        edge = torch.relu(self.conv(edge_maks))
+        edge_mask = torch.cat([self.DWConv1(edge_mask), self.DWConv2(edge_mask),
+                               self.DWConv3(edge_mask), self.DWConv4(edge_mask)], dim=1) + skip
+        edge = torch.relu(self.conv(edge_mask))
 
         x = x + edge  # Feature + Masked Edge information
 
