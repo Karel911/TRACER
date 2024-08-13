@@ -1,5 +1,4 @@
 albumentations==1.0.3
-certifi==2023.7.22
 colorama==0.4.4
 cycler==0.10.0
 imageio==2.9.0
