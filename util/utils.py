@@ -43,7 +43,7 @@ url_TRACER = {
 }
 
 
-def load_pretrained(model_name):
-    state_dict = model_zoo.load_url(url_TRACER[model_name])
+def load_pretrained(model_name, device):
+    state_dict = model_zoo.load_url(url_TRACER[model_name], map_location = device)
 
     return state_dict

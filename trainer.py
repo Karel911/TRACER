@@ -159,7 +159,7 @@ class Trainer():
 
     def test(self, args, save_path):
         path = os.path.join(save_path, 'best_model.pth')
-        self.model.load_state_dict(torch.load(path))
+        self.model.load_state_dict(torch.load(path, map_location = self.device))
         print('###### pre-trained Model restored #####')
 
         te_img_folder = os.path.join(args.data_path, args.dataset, 'Test/images/')
@@ -226,7 +226,7 @@ class Tester():
             self.model = nn.DataParallel(self.model).to(self.device)
 
         path = os.path.join(save_path, 'best_model.pth')
-        self.model.load_state_dict(torch.load(path))
+        self.model.load_state_dict(torch.load(path, map_location = self.device))
         print('###### pre-trained Model restored #####')
 
         self.criterion = Criterion(args)
